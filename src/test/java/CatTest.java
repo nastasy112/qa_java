@@ -1,24 +1,28 @@
 import com.example.Cat;
 import com.example.Feline;
+import com.example.Predator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Arrays;
 import java.util.List;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.mockito.Mockito.spy;
+
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class CatTest {
 
-    @Mock
+    @Spy
     Feline feline;
 
+    // Готово. Мок нужен, тк есть зависимость от класса Feline в конструкторе и от самого конструктора
     @Test
     public void getSoundReturnsCorrectValue(){
-        Cat cat = new Cat(feline);
+        Cat cat = spy(new Cat(feline));
         String expectedSound = "Мяу";
 
         String actualSound = cat.getSound();
@@ -26,15 +30,20 @@ public class CatTest {
         Assert.assertEquals("Method getSound return incorrect value.", expectedSound, actualSound );
     }
 
+
+    @Mock
+    Predator predator;
+
+    // Готово. Есть зависимть от класса Predator,метод predator.getFood и Feline
     @Test
-    public void getFoodWorked() throws Exception {
-        Cat cat = new Cat(feline);
-        Mockito.when(cat.getFood()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
-        List<String> expectedFood = Arrays.asList("Животные", "Птицы", "Рыба");
+    public void getFoodReturnCorrectList() throws Exception {
+        Cat cat = spy(new Cat(feline));
+        Mockito.when(predator.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
 
         List<String> actualFood = cat.getFood();
 
-        Assert.assertEquals("Method getFoodWorked return incorrect value.", expectedFood, actualFood);
+        Assert.assertEquals("Method getFood return incorrect value.", expectedFood, actualFood);
     }
 
 }

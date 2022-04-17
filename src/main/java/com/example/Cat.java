@@ -10,8 +10,7 @@ public class Cat {
         this.predator = feline;
     }
 
-    public String getSound() {
-        return "Мяу";
+    public String getSound() {return "Мяу";
     }
 
     public List<String> getFood() throws Exception {
