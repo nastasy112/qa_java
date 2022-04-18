@@ -6,28 +6,24 @@ public class LionAlex extends Lion{
 
 <span class="fc" id="L7">    private final List&lt;String&gt; friends = List.of(&quot;Марти&quot;, &quot;Глория&quot;, &quot;Мелфан&quot;);</span>
 <span class="fc" id="L8">    final String placeOfLiving = &quot;Нью-Йоркский зоопарк&quot;;</span>
-    private Feline feline;
+    private final Feline feline;
 
-    public LionAlex() throws Exception {
-<span class="fc" id="L12">        super(&quot;Самец&quot;);</span>
-<span class="fc" id="L13">    }</span>
-
-    public LionAlex(Feline feline){
-<span class="fc" id="L16">        super(feline);</span>
-<span class="fc" id="L17">        this.feline = feline;</span>
-<span class="fc" id="L18">    }</span>
+    public LionAlex(Feline feline) throws Exception {
+<span class="fc" id="L12">        super(&quot;Самец&quot;, feline);</span>
+<span class="fc" id="L13">        this.feline = feline;</span>
+<span class="fc" id="L14">    }</span>
 
     public List&lt;String&gt; getFriends(){
-<span class="fc" id="L21">        return friends;</span>
+<span class="fc" id="L17">        return friends;</span>
     }
 
     public String getPlaceOfLiving(){
-<span class="fc" id="L25">        return placeOfLiving;</span>
+<span class="fc" id="L21">        return placeOfLiving;</span>
     }
 
     @Override
     public int getKittens() {
-<span class="fc" id="L30">        return feline.getKittens(0);</span>
+<span class="fc" id="L26">        return feline.getKittens(0);</span>
     }
 
 
