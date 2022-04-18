@@ -19,6 +19,9 @@ public class LionTest {
     private final String sex;
     private final boolean expectedHasMane;
 
+    @Mock
+    Feline feline;
+
     public LionTest(String sex, boolean expectedHasMane) {
         this.sex = sex;
         this.expectedHasMane = expectedHasMane;
@@ -37,10 +40,10 @@ public class LionTest {
         };
     }
 
-    // Готово. Есть зависимость от метода doesHaveMane
+    // Готово. Есть зависимость от метода doesHaveMane и класса Feline
     @Test
     public void lionConstructionCreateLion() throws Exception {
-        Lion lion = spy(new Lion(sex));
+        Lion lion = spy(new Lion(sex, feline));
         Mockito.when(lion.doesHaveMane()).thenReturn(expectedHasMane);
 
         boolean actualHasMane = lion.doesHaveMane();
@@ -48,14 +51,14 @@ public class LionTest {
         Assert.assertEquals("Construction doesn't create lion.", expectedHasMane, actualHasMane);
     }
 
-    // Готово. Мок не нужен, тк нет зависимости от др. методов или классов
+    // Готово. Мок нужен, тк есть зависимость от класса Feline
     @Test
     public void getLionConstructionException() {
         String expectedText = "Используйте допустимые значения пола животного - самей или самка";
         Exception exception = null;
 
         try {
-            Lion lion = new Lion("Кобель");
+            Lion lion = new Lion("Кобель", feline);
         } catch (Exception ex){
             exception = ex;
         }
@@ -64,10 +67,10 @@ public class LionTest {
         Assert.assertEquals("Massage exception is incorrect.", expectedText, exception.getMessage());
     }
 
-    // Готово. Есть зависимость от конструктора Lion(String sex)
+    // Готово. Есть зависимость от конструктора Lion
     @Test
     public void doesHaveManeReturnCorrectValue() throws Exception {
-        Lion lion = spy(new Lion(sex));
+        Lion lion = spy(new Lion(sex, feline));
 
         boolean actualMane = lion.doesHaveMane();
 
@@ -75,13 +78,10 @@ public class LionTest {
         Assert.assertEquals("Method doesHaveMane return incorrect value.", expectedHasMane, actualMane);
     }
 
-    @Mock
-    Feline feline;
-
-    // Готово. Есть зависимость от конструктора от класса Feline и метода feline.getKittens())
+    // Готово. Есть зависимость от конструктора класса Lion и класса Feline, также от метода feline.getKittens())
     @Test
-    public void getKittensReturnCorrectValue(){
-        Lion lion = new Lion(feline);
+    public void getKittensReturnCorrectValue() throws Exception {
+        Lion lion = new Lion(sex, feline);
         int expectedKittens = 1;
         Mockito.when(feline.getKittens()).thenReturn(1);
 
@@ -91,10 +91,10 @@ public class LionTest {
         Assert.assertEquals("Method getKittens return incorrect value.", expectedKittens, actualKittens);
     }
 
-    // Готово. Есть зависимость от класса Feline и метода feline.getFood
+    // Готово. Есть зависимость от конструктор Lion, класса Feline и метода feline.getFood
     @Test
     public void getFoodReturnCorrectValue() throws Exception {
-        Lion lion = new Lion(feline);
+        Lion lion = new Lion(sex, feline);
         Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> expectedListOfMeat = List.of("Животные", "Птицы", "Рыба");
 

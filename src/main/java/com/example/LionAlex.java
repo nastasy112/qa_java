@@ -6,14 +6,10 @@ public class LionAlex extends Lion{
 
     private final List<String> friends = List.of("Марти", "Глория", "Мелфан");
     final String placeOfLiving = "Нью-Йоркский зоопарк";
-    private Feline feline;
+    private final Feline feline;
 
-    public LionAlex() throws Exception {
-        super("Самец");
-    }
-
-    public LionAlex(Feline feline){
-        super(feline);
+    public LionAlex(Feline feline) throws Exception {
+        super("Самец", feline);
         this.feline = feline;
     }
 

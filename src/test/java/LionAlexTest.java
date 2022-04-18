@@ -19,7 +19,7 @@ public class LionAlexTest {
 
     @Test
     public void getFriendsReturnCorrectValue() throws Exception {
-        LionAlex lionAlex = spy(new LionAlex());
+        LionAlex lionAlex = spy(new LionAlex(feline));
         List<String> expectedListOfFriends = List.of("Марти", "Глория", "Мелфан");
 
         List<String> actualListOfFriends = lionAlex.getFriends();
@@ -29,7 +29,7 @@ public class LionAlexTest {
 
     @Test
     public void getPlaceOfLivingReturnCorrectValue() throws Exception {
-        LionAlex lionAlex = spy(new LionAlex());
+        LionAlex lionAlex = spy(new LionAlex(feline));
         String expectedPlaceOfLiving = "Нью-Йоркский зоопарк";
 
         String aclualPlaceOfLiving = lionAlex.getPlaceOfLiving();
@@ -38,7 +38,7 @@ public class LionAlexTest {
     }
 
     @Test
-    public void getKittensReturnZero(){
+    public void getKittensReturnZero() throws Exception {
         LionAlex lionAlex = spy(new LionAlex(feline));
         int expectedKittens = 0;
 
